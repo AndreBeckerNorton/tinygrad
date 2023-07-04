@@ -513,7 +513,7 @@ class Tensor:
 
   # ***** activation functions (unary) *****
 
-  def sigmoid(self): return (1.0 + (-self).exp()).reciprocal()
+  def sigmoid(self): return (1.0 + (-self).exp()).reciprocal().clip(1e-7, 1.0-1e-7)
   def elu(self, alpha=1.0): return self.relu() - alpha*(1-self.exp()).relu()
   def celu(self, alpha=1.0): return self.maximum(0) + (alpha * ((self / alpha).exp() - 1)).minimum(0)
   def swish(self): return self * self.sigmoid()
